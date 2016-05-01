@@ -1,0 +1,61 @@
+- Présentation Git :
+
+Introduction à Git par David Gageot : Git, la gestion de configuration qui vous veut du bien
+Code freeze, merges douloureux, installation et administration d'un serveur, sauvegardes fastidieuses, perte de données, branches coûteuses, obstacle au refactoring, cycles de build trop longs…
+Ces mots sont-ils pour vous synonymes de Gestion de Configuration ? Vous avez appris à vivre en couple avec un outil en ignorant volontairement ses défauts, mais ils se rappellent régulièrement à vous ?
+Découvrez à travers des cas d'utilisation quotidiens comment Git sait se faire oublier et vous faire gagner beaucoup de temps.
+Vous allez aimer cet outil avec une administration proche de zéro, ne nécessitant pas de backup, utilisable en moins de cinq minutes sur une clef usb, un simple disque partagé, en serveur ou en mode SAAS. Les équipes agiles, seront « accros » de l'outil sachant se faire oublier lors de refactoring de code massifs et permettant l'intégration continue sans serveur. Les équipes distribuées apprécieront les branches locales, le cherry-picking et les performances de git. Vous êtes build 
+manager en charge des branches et des code freezes ? Désolé, vous venez de perdre votre job.
+
+ * Gestionnaire de CONTENU!
+ * Fondamentalement local (tout se fait localement sauf l'échange de commits : push/fetch -- et pull--)
+ * DAG (Directed Acyclic Graph) => Visualisation avec GitViz
+ * Creation de données uniquement!
+ * sha (constitution d'un commit), ref (locale/remote), HEAD (@),.... http://git-scm.com/book/en/Git-Branching-What-a-Branch-Is
+ * Règle de Base : Ne JAMAIS modifier des commits déjà partagés!!!!!! (à moins, dans certains cas particuliers, de savoir exactement ce que vous faites..)
+ * Contrairement aux autres VCS qui sont des solutions d’archivage de code source, Git est un outil facilitant le développement” (POC, historique --blame-- , bisection,...)
+ * Git n'est pas un moule dans lequel on doit rentrer mais un outil souple qui peut être adapté à de nombreuses utilisation (ex : wiki, déploiement --Azure--, backup, dropbox-like, ...)
+ * "le gagnant des (D)VCS" (Brian Harry)... que vous utiliserez aujourd'hui ou demain... 
+ * Des tonnes de doc!!! (entre autre : http://speckyboy.com//2013/06/03/resources-for-learning-git/ )
+ 
+Vocabulaire:
+ * ref/reference : "pointeur" vers un commit
+ * branch/locale : ref qui point vers des commits et qu'on peut manipuler (en utilisant les commandes de git)
+ * remote : ref qui pointe vers les commits d'un dépot distant (et mis à jour automatiquement par git)
+ * tag : ref qui pointe vers un commit (mais qu'on ne peut pas bouger)
+ 
+- Configuration : nom & email / .gitignore
+- Working directory/Index/depot
+- GitExtensions:
+ * Init => création d'un dépôt vide dans lequel on va archiver son travail
+ * Clone ( git clone //tsrv027/_Partage/FormationGit.git ) => Duplication d'un dépôt existant pour pouvoir y travailler dedans.
+ * File Tree
+ * Checkout ref /sha
+ * "detached head" => on a fait un checkout d'un commit et non pas d'une référence locale. Eviter absolument d'être dans ce cas là sauf quand on veut tester un commit particulier de l'historique.
+ * Commit / "Staging Area/Index" où on construit minutieusement son commit / Bien formater Message (80c) / Associer Workitems / chunks / Amend
+ * Diff
+ * Historique
+ * Blame => Qui a écrit quelle ligne?
+ * Reset => reset de la branche locale vers un commit particulier
+       ->Soft : en gardant toute les différences dans la "staging area" (laisse l'espace de travail intact). Laisse la possibilité de refaire directement un commit...
+	   ->Mixed : en gardant toute les différences uniquement dans l'espace de travail
+	   ->Hard : en ne gardant aucune des différences (perte de celles-ci!)
+ * Reset d'un seul fichier (depuis la zone de "diff" => click droit => "Reset file to..."
+ * Revert => Annulation des modifs introduites par un commit
+ * Fetch / Pull (equivalent à un fetch + un merge ou un rebase => déconseillé car on ne voit pas les commits qui vont être intégrés dans notre historique!) / Push
+ * Cherry pick => prendre des commits ici et là
+ * Bisect => retrouver un commit introduisant une erreur
+ * Suppression de branches (localement / distante)
+- Creation de branches / Remotes / detached head
+- Fast forward => aller vers l'avant comme il n'y a pas de divergence
+- Fetch/Rebase/Rebase interactif (fixup, squash, rewrite, reorder) /Merge/Rebase into ( http://git-scm.com/book/ch3-6.html ) P4Merge:local/remote/base
+- Stash => Mettre en attente des modifs faites dans le répertoire de travail
+- reflog => retrouver l'historique des commits (et donc ceux potentiellement effacés!!)
+- Git-tfs : http://pmiossec.github.io/.net/2014/01/14/GitTfs_GitExtensions/ & https://github.com/git-tfs/git-tfs
+- Git avancé :
+ * Structure d'un dépot
+ * Repot bare => ne contenant pas d'espace de travail, juste l'historique, utilisé comme dépôt central
+ * Workflow (GitFlow http://nvie.com/posts/a-successful-git-branching-model/ , Github flow)
+ * alias => raccourcis configurables  
+ * hook => script exécutés avant certaines actions (commit, push, ...) qui permettent de faire des vérifications,...
+ * Apprendre la ligne de commande : http://pcottle.github.io/learnGitBranching/
